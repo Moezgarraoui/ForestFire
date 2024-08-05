@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulation de la propagation d’un feu de forêt</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #grid {
+            display: inline-block;
+            line-height: 0;
+            margin: 20px auto;
+            border: 2px solid black; 
+        }
+        .cell {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 20px;
+            border: 1px solid black; 
+            box-sizing: border-box; 
+        }
+        .T {
+            background-color: green;
+        }
+        .F {
+            background-color: red;
+        }
+        .A {
+            background-color: gray;
+        }
+    </style>
+</head>
+<body class="text-center">
+    <div class="container">
+        <h1 class="my-4">Simulation de la propagation d’un feu de forêt</h1>
+        <div class="mb-3">
+            <button class="btn btn-primary" onclick="startSimulation()">Démarrer la simulation</button>
+            <button id="stopButton" class="btn btn-secondary" onclick="toggleSimulation()">Stop</button>
+        </div>
+        <h2 id="subtitle" class="my-4">État initial</h2>
+        <div id="grid" class="mx-auto"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        let isRunning = false;
+        let isPaused = false;
+        let currentStep = 0;
+        let simulationData = [];
+
+        async function startSimulation() {
+            const response = await fetch('/simulate');
+            simulationData = await response.json();
+            currentStep = 0;
+            isRunning = true;
+            isPaused = false;
+            document.getElementById('stopButton').innerText = 'Stop';
+            runSimulation();
+        }
+
+        function runSimulation() {
+            if (isRunning && !isPaused && currentStep < simulationData.length) {
+                displayGrid(simulationData[currentStep]);
+                document.getElementById('subtitle').innerText = `Après ${currentStep} étape${currentStep > 1 ? 's' : ''}`;
+                currentStep++;
+                setTimeout(runSimulation, 1500); 
+            }
+        }
+
+        function toggleSimulation() {
+            if (isRunning) {
+                if (isPaused) {
+                    isPaused = false;
+                    document.getElementById('stopButton').innerText = 'Stop';
+                    runSimulation();
+                } else {
+                    isPaused = true;
+                    document.getElementById('stopButton').innerText = 'Continuer';
+                }
+            }
+        }
+
+        function displayGrid(grid) {
+            const rows = grid.split('\n');
+            let formattedGrid = '';
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                for (let j = 0; j < row.length; j++) {
+                    const cell = row[j];
+                    if (cell === 'T' || cell === 'F' || cell === 'A') {
+                        formattedGrid += `<span class="cell ${cell}">${cell}</span>`;
+                    }
+                }
+                formattedGrid += '<br>';
+            }
+            document.getElementById('grid').innerHTML = formattedGrid;
+        }
+    </script>
+</body>
+</html>

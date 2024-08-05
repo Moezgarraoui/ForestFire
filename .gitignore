@@ -1,0 +1,109 @@
+# Logs
+logs
+*.log
+*.log.*
+
+# Runtime data
+*.pid
+*.seed
+*.pid.lock
+
+# Directory-based project format
+.project
+.classpath
+.settings/
+.idea/
+*.iml
+
+# Maven specific
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+.mvn/wrapper/MavenWrapperDownloader.java
+
+# IntelliJ IDEA
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+# NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# Spring Boot DevTools
+.spring-boot-devtools.properties
+
+# STS
+.springBeans
+
+# Swagger
+api-docs/
+.swagger-codegen/
+
+# Windows
+*.bat
+*.cmd
+*.com
+*.exe
+*.dll
+*.pdb
+*.obj
+*.lib
+*.log
+*.ps1
+*.psm1
+
+# macOS
+*.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Thumbnails
+Thumbs.db
+ehthumbs.db
+
+# Archive files
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.gz
+*.rar
+*.7z
+
+# IDE settings
+.vscode/
+
+# Custom
+config/application.properties
