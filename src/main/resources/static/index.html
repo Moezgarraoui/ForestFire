@@ -7,13 +7,38 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .computer-screen {
+            width: 800px;
+            height: 600px;
+            border: 16px solid #343a40;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .logo {
+            width: 150px;
+            margin-bottom: 20px;
         }
         #grid {
             display: inline-block;
             line-height: 0;
             margin: 20px auto;
-            border: 2px solid black; 
+            border: 2px solid #343a40;
+            padding: 10px;
+            background-color: #fff;
         }
         .cell {
             display: inline-block;
@@ -22,8 +47,8 @@
             text-align: center;
             vertical-align: middle;
             line-height: 20px;
-            border: 1px solid black; 
-            box-sizing: border-box; 
+            border: 1px solid #343a40;
+            box-sizing: border-box;
         }
         .T {
             background-color: green;
@@ -36,15 +61,20 @@
         }
     </style>
 </head>
-<body class="text-center">
-    <div class="container">
-        <h1 class="my-4">Simulation de la propagation d’un feu de forêt</h1>
-        <div class="mb-3">
-            <button class="btn btn-primary" onclick="startSimulation()">Démarrer la simulation</button>
-            <button id="stopButton" class="btn btn-secondary" onclick="toggleSimulation()">Stop</button>
+<body>
+    <div class="computer-screen">
+        <img src="/images/logo.png" alt="CIRIL Group Logo" class="logo">
+        <div class="card w-100">
+            <div class="card-body text-center">
+                <h1 class="card-title">Simulation de la propagation d’un feu de forêt</h1>
+                <div class="mb-3">
+                    <button class="btn btn-primary mr-2" onclick="startSimulation()">Démarrer la simulation</button>
+                    <button id="stopButton" class="btn btn-secondary" onclick="toggleSimulation()">Stop</button>
+                </div>
+                <h2 id="subtitle" class="my-4"></h2>
+                <div id="grid" class="mx-auto"></div>
+            </div>
         </div>
-        <h2 id="subtitle" class="my-4">État initial</h2>
-        <div id="grid" class="mx-auto"></div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -64,6 +94,7 @@
             isRunning = true;
             isPaused = false;
             document.getElementById('stopButton').innerText = 'Stop';
+            document.getElementById('subtitle').innerText = 'État initial';
             runSimulation();
         }
 
@@ -72,7 +103,7 @@
                 displayGrid(simulationData[currentStep]);
                 document.getElementById('subtitle').innerText = `Après ${currentStep} étape${currentStep > 1 ? 's' : ''}`;
                 currentStep++;
-                setTimeout(runSimulation, 1500); 
+                setTimeout(runSimulation, 1500);
             }
         }
 
